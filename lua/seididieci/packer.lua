@@ -54,9 +54,8 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
-  use {
-    'lewis6991/gitsigns.nvim',
-    -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
-  }
+  use('lewis6991/gitsigns.nvim')
+
+  use('lukas-reineke/indent-blankline.nvim')
 
 end)
