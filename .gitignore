@@ -1,0 +1,10 @@
+# Exclude everything
+/*
+
+!.gitignore
+
+# Neovim configurations
+!nvim/
+
+# Adds sway stuff
+!sway/
