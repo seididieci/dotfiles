@@ -1,0 +1,17 @@
+shell:
+  program: /usr/bin/zsh
+
+window:
+  # Seting some terminal opacity
+  opacity: .8
+
+font:
+  size: 10
+
+colors:
+  primary:
+    background: '#000000'
+
+key_bindings:
+ - { key: Return, mods: Control|Shift, action: SpawnNewInstance }
+

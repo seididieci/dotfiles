@@ -9,4 +9,5 @@
 # Adds sway stuff
 !sway/
 !waybar/
+!alacritty/
 
