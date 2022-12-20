@@ -1,0 +1,111 @@
+{
+  "position": "top",
+  "height": 24,
+  "modules-left": ["sway/workspaces", "sway/mode", "custom/playerctl"],
+  "modules-center": ["sway/window"],
+  "modules-right": [
+    "tray",
+    "keyboard-state",
+    "network",
+    // "temperature",
+    "cpu",
+    "memory",
+    "battery",
+    "pulseaudio",
+    "backlight",
+    "clock"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "disable-click": true,
+  },
+  "sway/window": {
+    "tooltip": false,
+  },
+  "sway/mode": {
+    "format": " {}"
+  },
+  "tray": {
+    "spacing": 10,
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%a %Y %b %d %R:%S}"
+  },
+  "cpu": {
+    "format": "<span font='FontAwesome'></span>{usage}%",
+    "interval": 1
+  },
+  "memory": {
+    "format": "<span font='FontAwesome'></span>{}%",
+    "interval": 5
+  },
+  "temperature": {
+    "critical-threshold": 75,
+    "format": "<span font='FontAwesome'></span>{temperatureC}°C"
+  },
+  "battery": {
+    "format": "<span font='FontAwesome'>{icon}</span>{capacity}% - {time}",
+    "format-icons": ["", "", "", "", ""],
+    "format-time": "{H}h{M}m",
+    "format-charging": "<span font='FontAwesome'>{icon}</span>{capacity}% - {time}",
+    "format-full": "<span font='FontAwesome'>{icon}</span>Charged",
+    "interval": 10,
+    "states": {
+      "warning": 25,
+      "critical": 10
+    },
+    "tooltip": false,
+    "on-click": "gnome-power-statistics"
+  },
+  "network": {
+    "format": "{icon}",
+    "format-alt": "{ipaddr}/{cidr} {icon}",
+    "format-alt-click": "click-right",
+    "format-wifi": "<span font='FontAwesome'></span>{essid}({signalStrength}%)",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": "⚠ Disconnected",
+    "on-click": "gnome-control-center wifi",
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "format": "<span font='FontAwesome'>{icon:2}</span>{volume:3}%",
+    "format-alt": "<span font='FontAwesome'>{icon:2}</span>{volume:3}%",
+    "format-alt-click": "click-right",
+    "format-muted": "<span font='FontAwesome'></span>",
+    "format-icons": {
+      "headphone": [" ", " ", " ", " "],
+      "default": ["", "", "", ""]
+    },
+    "scroll-step": 2,
+    "on-click": "gnome-control-center sound",
+    "on-click-right": "pavucontrol"
+  },
+  "backlight": {
+    "format": "<span font='FontAwesome'>{icon}</span>{percent}%",
+    "format-alt": "<span font='FontAwesome'>{icon}</span>",
+    "format-alt-click": "click-right",
+    "format-icons": ["✶", "✷", "✸", "✹"],
+    "on-scroll-down": "light -A 1",
+    "on-scroll-up": "light -U 1"
+  },
+  "keyboard-state": {
+    "device-path": "/dev/input/event2",
+    "numlock": true,
+    "capslock": false,
+    "format": "<span font='FontAwesome'>{name}</span>",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+ 	"custom/playerctl": {
+		"format": "{}",
+		"return-type": "json",
+		"exec": "$HOME/.config/waybar/playerctl.sh 2> /dev/null",
+		"on-click": "playerctl play-pause",
+		"on-right-click": "sys-notif media",
+		"on-scroll-up": "playerctl position 3+",
+		"on-scroll-down": "playerctl position 3-"
+	}
+}
