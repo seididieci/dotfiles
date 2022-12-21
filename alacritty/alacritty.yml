@@ -1,12 +1,16 @@
 shell:
-  program: /usr/bin/zsh
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
 
 window:
   # Seting some terminal opacity
   opacity: .8
 
 font:
-  size: 10
+  size: 10.5
 
 colors:
   primary:
