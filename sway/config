@@ -31,12 +31,10 @@ output eDP-1 resolution 1920x1080 position 0,1080
 ### Idle configuration
 exec swayidle -w \
         timeout 600 'swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f' \
-        timeout 660 'swaymsg "output * dpms off"' \
-       	     resume 'swaymsg "output * dpms on"' \
-       before-sleep swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f 
+        timeout 660 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+        before-sleep 'swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f' 
 
 bindsym $mod+Ctrl+l exec swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f
-
 
 ### Input configuration
 # seat seat0 xcursor_theme Bibata-Modern-Classic 24
@@ -197,8 +195,8 @@ for_window [app_id="Alacritty"] opacity .9
     bindsym XF86MonBrightnessUp exec light -A 10
     bindsym $mod+Escape exec systemctl suspend
     bindsym $mod+c exec sh -c 'code --enable-features=UseOzonePlatform --ozone-platform=wayland'
-   # bindsym XF86AudioRaiseVolume exec pact set-sink-volume @DEFAULT_SINK@ +5%
-   # bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 #
 # Resizing containers:
