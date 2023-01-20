@@ -41,6 +41,18 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+lsp.configure('vuels', {
+  settings = {
+    vetur = {
+      experimental = {
+        templateInterpolationService = true
+      }
+    }
+  }
+})
+
+lsp.nvim_workspace()
+
 lsp.setup()
 
 vim.diagnostic.config({
