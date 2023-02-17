@@ -56,11 +56,13 @@ return require('packer').startup(function(use)
 
   use('lewis6991/gitsigns.nvim')
 
-  use('lukas-reineke/indent-blankline.nvim')
-
   use({
     "vuki656/package-info.nvim",
     requires = "MunifTanjim/nui.nvim",
   })
+
+  --- Debugging...
+  use('puremourning/vimspector')
+
 
 end)
