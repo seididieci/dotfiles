@@ -62,6 +62,11 @@ return require('packer').startup(function(use)
     requires = "MunifTanjim/nui.nvim",
   })
 
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  })
+
   --- Debugging...
   use('puremourning/vimspector')
 
