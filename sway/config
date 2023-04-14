@@ -47,7 +47,7 @@ input "*" {
 
 
 ### Windowing configuration
-gaps inner 15
+gaps inner 10
 gaps outer -10
 default_border pixel 2
 
