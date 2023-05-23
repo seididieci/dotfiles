@@ -69,6 +69,7 @@ return require('packer').startup(function(use)
 
   --- Debugging...
   use('puremourning/vimspector')
-
+  use('mfussenegger/nvim-dap')
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
 
 end)
