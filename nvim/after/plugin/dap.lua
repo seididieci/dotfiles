@@ -21,6 +21,8 @@ dap.configurations.cs = {
   },
 }
 
+
+-- Debugger UI configurations
 local dapui = require('dapui')
 
 dapui.setup({
@@ -117,3 +119,23 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
   --dapui.close()
 end
+
+
+-- Some mappings to ease dap Use
+vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<F4>', function() dap.run_last() end)
+vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+vim.keymap.set('n', '<F9>', function() dap.toggle_breakpoint() end)
+vim.keymap.set('n', '<leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
+vim.keymap.set('n', '<leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+
+vim.keymap.set('n', '<F6>', function()
+  dap.close()
+  dapui.close()
+end)
+vim.keymap.set('n', '<leader>K', function()
+  dapui.eval()
+  dapui.eval()
+end)
