@@ -25,11 +25,11 @@ exec ~/.azotebg
 
 ### Idle configuration
 exec swayidle -w \
-        timeout 600 'swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f' \
+        timeout 600 'swaylock --grace 5 -f' \
         timeout 660 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-        before-sleep 'swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f' 
+        before-sleep 'swaylock -f' 
 
-bindsym $mod+Ctrl+l exec swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f
+bindsym $mod+Ctrl+l exec swaylock -f
 
 ### Input configuration
 # seat seat0 xcursor_theme Bibata-Modern-Classic 24
@@ -41,10 +41,9 @@ input "1739:52694:DELL095A:00_06CB:CDD6_Touchpad" {
 
 input "*" {
   xkb_numlock enable
-  xkb_options compose:ralt
-  xkb_layout dvorak
+  xkb_layout dvorak,it
+  xkb_options grp:ctrls_toggle,compose:ralt
 }
-
 
 ### Windowing configuration
 gaps inner 10
