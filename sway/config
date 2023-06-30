@@ -19,8 +19,7 @@ exec_always lxpolkit
 ### Notifications
 exec mako
 
-
-### Output configuration
+### Set azote background
 exec ~/.azotebg
 
 ### Idle configuration
@@ -32,8 +31,6 @@ exec swayidle -w \
 bindsym $mod+Ctrl+l exec swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 10 --effect-blur 7x5 --grace 5 --fade-in 0.2 -f
 
 ### Input configuration
-# seat seat0 xcursor_theme Bibata-Modern-Classic 24
-
 input "1739:52694:DELL095A:00_06CB:CDD6_Touchpad" {
   tap enabled
   dwt enabled
@@ -59,6 +56,7 @@ for_window [app_id="java" title="DBeaver "] floating enable
 for_window [title=".*Visual Studio Code"] opacity .9
 for_window [app_id="firefox" title="Developer Tools.*"] opacity .9
 for_window [app_id="firefox" title="Library"] floating enable
+for_window [app_id="firefox" title=""] floating enable
 for_window [app_id="org.gnome.Nautilus"] opacity .9
 for_window [title=".*Azure Data Studio"] opacity .9
 for_window [app_id="Alacritty"] opacity .9
