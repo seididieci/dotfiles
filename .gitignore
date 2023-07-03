@@ -9,6 +9,7 @@ nvim/plugin/packer_compiled.lua
 
 # Adds sway stuff
 !sway/
+!swaylock/
 !waybar/
 !alacritty/
 !foot/
