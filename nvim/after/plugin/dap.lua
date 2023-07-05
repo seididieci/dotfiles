@@ -21,6 +21,16 @@ dap.configurations.cs = {
   },
 }
 
+-- Set symbols for debugger
+vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#181622' })
+vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#181622' })
+vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
+
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition', { text = 'ﳁ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
 -- Debugger UI configurations
 local dapui = require('dapui')
@@ -69,7 +79,7 @@ dapui.setup({
     {
       elements = {
         "repl",
-        "console",
+        "console"
       },
       size = 0.25, -- 25% of total lines
       position = "bottom",
@@ -123,6 +133,7 @@ end
 
 -- Some mappings to ease dap Use
 vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<F3>', function() dap.restart() end)
 vim.keymap.set('n', '<F4>', function() dap.run_last() end)
 vim.keymap.set('n', '<F10>', function() dap.step_over() end)
 vim.keymap.set('n', '<F11>', function() dap.step_into() end)
