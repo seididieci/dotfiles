@@ -1,13 +1,17 @@
 {
   "position": "top",
   "height": 24,
-  "modules-left": ["sway/workspaces", "sway/mode", "custom/playerctl"],
+  "modules-left": [
+    "sway/workspaces", 
+    "sway/mode",
+    "custom/playerctl"
+  ],
   "modules-center": ["sway/window"],
   "modules-right": [
     "tray",
     "keyboard-state",
     "network",
-    // "temperature",
+    "temperature",
     "cpu",
     "memory",
     "battery",
@@ -33,23 +37,23 @@
     "format": "{:%a %Y %b %d %R:%S}"
   },
   "cpu": {
-    "format": "<span font='FontAwesome'></span>{usage}%",
+    "format": " {usage}%",
     "interval": 1
   },
   "memory": {
-    "format": "<span font='FontAwesome'></span>{}%",
+    "format": " {}%",
     "interval": 5
   },
   "temperature": {
     "critical-threshold": 75,
-    "format": "<span font='FontAwesome'></span>{temperatureC}°C"
+    "format": "{temperatureC}°C"
   },
   "battery": {
-    "format": "<span font='FontAwesome'>{icon}</span>{capacity}% - {time}",
+    "format": "{icon} {capacity}% - {time}",
     "format-icons": ["", "", "", "", ""],
     "format-time": "{H}h{M}m",
-    "format-charging": "<span font='FontAwesome'>{icon}</span>{capacity}% - {time}",
-    "format-full": "<span font='FontAwesome'>{icon}</span>Charged",
+    "format-charging": "{icon} {capacity}% - {time}",
+    "format-full": "{icon} Charged",
     "interval": 10,
     "states": {
       "warning": 25,
@@ -62,17 +66,17 @@
     "format": "{icon}",
     "format-alt": "{ipaddr}/{cidr} {icon}",
     "format-alt-click": "click-right",
-    "format-wifi": "<span font='FontAwesome'></span>{essid}({signalStrength}%)",
+    "format-wifi": " {essid}({signalStrength}%)",
     "format-ethernet": " {ifname}",
     "format-disconnected": "⚠ Disconnected",
     "on-click": "gnome-control-center wifi",
     "tooltip": false
   },
   "pulseaudio": {
-    "format": "<span font='FontAwesome'>{icon:2}</span>{volume:3}%",
-    "format-alt": "<span font='FontAwesome'>{icon:2}</span>{volume:3}%",
+    "format": "{icon:2}{volume:3}%",
+    "format-alt": "{icon:2}{volume:3}%",
     "format-alt-click": "click-right",
-    "format-muted": "<span font='FontAwesome'></span>",
+    "format-muted": "",
     "format-icons": {
       "headphone": [" ", " ", " ", " "],
       "default": ["", "", "", ""]
@@ -82,8 +86,8 @@
     "on-click-right": "pavucontrol"
   },
   "backlight": {
-    "format": "<span font='FontAwesome'>{icon}</span>{percent}%",
-    "format-alt": "<span font='FontAwesome'>{icon}</span>",
+    "format": "{icon}{percent}%",
+    "format-alt": "{icon}",
     "format-alt-click": "click-right",
     "format-icons": ["✶", "✷", "✸", "✹"],
     "on-scroll-down": "light -A 1",
@@ -92,8 +96,8 @@
   "keyboard-state": {
     "device-path": "/dev/input/event2",
     "numlock": true,
-    "capslock": false,
-    "format": "<span font='FontAwesome'>{name}</span>",
+    "capslock": true,
+    "format": "{name}",
     "format-icons": {
       "locked": "",
       "unlocked": ""

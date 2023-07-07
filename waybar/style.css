@@ -1,18 +1,21 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "Hack Nerd Font";
+  font-family: "mononoki Nerd Font";
   font-size: 13px;
+  letter-spacing: 1px;
   min-height: 0;
 }
 
 window#waybar {
-  background: rgba(0,0,0,.3);
-  color: white;
+  background: #202328;
+  color: #ddc7a1;
 }
 
 #window {
-  font-family: "Ubuntu";
+  font-family: "mononoki Nerd Font";
+  color: #c678dd;
+  font-weight: bold;
   margin-top: 0px;
 }
 
@@ -24,13 +27,15 @@ window#waybar {
 
 #workspaces button {
   padding: 0 5px;
-  background: transparent;
-  color: white;
+  background: #202328;
+  color: #bbc2cf;
   border-top: 2px solid transparent;
 }
 
 #workspaces button.focused {
-  color: white;
+  background: #32302f;
+  color: #c678dd;
+  font-weight: bold;
   border-top: 2px solid white;
 }
 
@@ -49,8 +54,17 @@ window#waybar {
   margin-top: 0px;
 }
 
+#cpu, #memory {
+  color: #ec5f67;
+}
+
+#clock {
+  color: #98be65;
+  font-weight: bold;
+}
+
 #temperature.critical {
-  color: red;
+  color: #ec5f67;
 }
 
 #battery icon {
@@ -58,6 +72,7 @@ window#waybar {
 }
 
 #battery.charging {
+  color: #98be65;
 }
 
 #keyboard-state label.numlock {
