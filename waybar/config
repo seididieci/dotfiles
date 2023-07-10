@@ -3,17 +3,17 @@
   "height": 24,
   "modules-left": [
     "sway/workspaces", 
+    "temperature",
+    "cpu",
+    "memory",
     "sway/mode",
     "custom/playerctl"
   ],
   "modules-center": ["sway/window"],
   "modules-right": [
     "tray",
-    "keyboard-state",
     "network",
-    "temperature",
-    "cpu",
-    "memory",
+    "keyboard-state",
     "battery",
     "pulseaudio",
     "backlight",
@@ -24,7 +24,13 @@
     "disable-click": true,
   },
   "sway/window": {
-    "tooltip": false,
+    "tooltip": true,
+    "icon": true,
+    "icon-size": 16,
+    "rewrite": {
+      "(.*)Mozilla Firefox": "Mozilla Firefox ",
+      "(.*)": "$1 "
+    }
   },
   "sway/mode": {
     "format": " {}"
