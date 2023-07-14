@@ -55,7 +55,7 @@ for_window [app_id="java" title="DBeaver "] floating enable
 for_window [title=".*Visual Studio Code"] opacity .9
 for_window [app_id="firefox" title="Developer Tools.*"] opacity .9
 for_window [app_id="firefox" title="Library"] floating enable
-for_window [app_id="firefox" title=""] floating enable
+#for_window [app_id="firefox" title=""] floating enable
 for_window [app_id="org.gnome.Nautilus"] opacity .9
 for_window [title=".*Azure Data Studio"] opacity .9
 for_window [app_id="Alacritty"] opacity .9
@@ -181,6 +181,7 @@ for_window [app_id="org.gnome.Calculator"] floating enable
 #
     # Select an area and copy to clipboard
     bindsym $mod+Print exec sh -c 'grim -g "$(slurp)" - | wl-copy'
+    bindsym Print exec sh -c 'grim - | wl-copy'
 
 #
 # Special Keys:
