@@ -4,10 +4,6 @@ dap.adapters.coreclr = {
   type = 'executable',
   command = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/netcoredbg/netcoredbg",
   args = { '--interpreter=vscode' },
-  env = {
-    DOTNET_ENVIRONMENT = "Development",
-    ASPNETCORE_ENVIRONMENT = "Development",
-  },
 }
 
 dap.configurations.cs = {
@@ -18,6 +14,10 @@ dap.configurations.cs = {
     program = function()
       return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
     end,
+    env = {
+      DOTNET_ENVIRONMENT = "Development",
+      ASPNETCORE_ENVIRONMENT = "Development",
+    }
   },
 }
 

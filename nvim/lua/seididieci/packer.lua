@@ -76,5 +76,5 @@ return require('packer').startup(function(use)
 
 
   -- Some usless cool stuff
-  use ('mattn/calendar-vim')
+  use('mattn/calendar-vim')
 end)
