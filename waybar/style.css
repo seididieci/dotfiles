@@ -39,6 +39,12 @@ window#waybar {
   border-top: 2px solid white;
 }
 
+#workspaces button.urgent {
+  background: #c678dd;
+  font-weight: bold;
+  border-top: 2px solid #c678dd;
+}
+
 #tray,
 #custom-japan,
 #custom-germany,
