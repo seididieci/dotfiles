@@ -38,7 +38,8 @@ input "1739:52694:DELL095A:00_06CB:CDD6_Touchpad" {
 
 input "*" {
   xkb_numlock enable
-  xkb_layout dvorak,it
+  xkb_layout "us,it"
+  xkb_variant "dvorak,"
   xkb_options grp:ctrls_toggle,compose:ralt
 }
 
