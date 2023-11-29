@@ -9,8 +9,7 @@ return require('packer').startup(function(use)
   use 'rstacruz/vim-closer'
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    -- or                            , branch = '0.1.x',
+    'nvim-telescope/telescope.nvim',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
