@@ -78,4 +78,6 @@ return require("packer").startup(function(use)
 
 	-- Some usless cool stuff
 	use("mattn/calendar-vim")
+
+	use("Exafunction/codeium.vim")
 end)
