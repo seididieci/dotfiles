@@ -14,6 +14,7 @@
     "tray",
     "network",
     "keyboard-state",
+    "custom/keyboard-layout",
     "battery",
     "pulseaudio",
     "backlight",
@@ -117,5 +118,12 @@
 		"on-right-click": "sys-notif media",
 		"on-scroll-up": "playerctl position 3+",
 		"on-scroll-down": "playerctl position 3-"
-	}
+	},
+  "custom/keyboard-layout": {
+    "format": " {}",
+    "interval": 5,
+    "return-type": "string",
+    "exec-if": "which $HOME/.tmux/plugins/tmux-keyboard-layout/scripts/get_keyboard_layout.sh",
+    "exec": "$HOME/.tmux/plugins/tmux-keyboard-layout/scripts/get_keyboard_layout.sh",
+  }
 }
