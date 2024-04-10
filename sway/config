@@ -10,13 +10,12 @@ set $term foot
 
 set $menu ~/.config/sway/sirula
 
-
 ### Polkit
 exec_always lxpolkit
 
-
 ### Notifications
-exec mako
+exec swaync
+bindsym $mod+Ctrl+n exec swaync-client -t -sw
 
 ### Set azote background
 exec ~/.azotebg
