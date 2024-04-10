@@ -15,7 +15,7 @@ exec_always lxpolkit
 
 ### Notifications
 exec swaync
-bindsym $mod+Ctrl+n exec swaync-client -t -sw
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 ### Set azote background
 exec ~/.azotebg
@@ -90,7 +90,8 @@ for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
     bindsym $mod+Shift+s sticky toggle
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec wlogout
 #
 # Moving around:
 #
