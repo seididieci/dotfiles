@@ -23,16 +23,6 @@ return require("packer").startup(function(use)
 
 	use({
 		"scottmckendry/cyberdream.nvim",
-		config = function()
-			require("cyberdream").setup({
-				transparent = false,
-				italic_comments = true,
-				hide_fillchars = true,
-				borderless_telescope = false,
-				terminal_colors = true,
-			})
-			vim.cmd("colorscheme cyberdream") -- set the colorscheme
-		end,
 	})
 
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
