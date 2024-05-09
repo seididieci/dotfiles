@@ -39,7 +39,7 @@ local config = {
 		-- Disable sections and component separators
 		component_separators = "",
 		section_separators = "",
-		theme = "rose-pine",
+		theme = "cyberdream",
 	},
 	sections = {
 		-- these are to remove the defaults
