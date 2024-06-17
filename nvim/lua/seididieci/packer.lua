@@ -57,6 +57,10 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"Decodetalkers/csharpls-extended-lsp.nvim",
+	})
+
+	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
@@ -86,7 +90,7 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	-- Some usless cool stuff
+	-- Some useless cool stuff
 	use("mattn/calendar-vim")
 
 	use({
