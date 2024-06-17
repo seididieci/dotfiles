@@ -26,13 +26,9 @@
     "disable-click": true,
   },
   "sway/window": {
-    "tooltip": true,
     "icon": true,
     "icon-size": 16,
-    "rewrite": {
-      "(.*)Mozilla Firefox": "Mozilla Firefox ",
-      "(.*)": "$1 "
-    }
+    "format": "{}",
   },
   "sway/mode": {
     "format": " {}"
