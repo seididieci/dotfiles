@@ -96,6 +96,13 @@ lsp.configure("vuels", {
 	},
 })
 
+lsp.configure("csharp_ls", {
+	handlers = {
+		["textDocument/definition"] = require("csharpls_extended").handler,
+		["textDocument/typeDefinition"] = require("csharpls_extended").handler,
+	},
+})
+
 lsp.nvim_workspace()
 
 lsp.setup()
