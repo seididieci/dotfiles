@@ -143,7 +143,7 @@ vim.keymap.set('n', '<leader>B', function() dap.set_breakpoint(vim.fn.input('Bre
 vim.keymap.set('n', '<leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 
 vim.keymap.set('n', '<F6>', function()
-  dap.close()
+  dap.terminate()
   dapui.close()
 end)
 vim.keymap.set('n', '<leader>K', function()
