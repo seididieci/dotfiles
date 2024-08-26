@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-nvim-lua" },
+			{ "onsails/lspkind.nvim" },
 
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" },
@@ -56,6 +57,7 @@ return require("packer").startup(function(use)
 		},
 	})
 
+  -- This is for the C# LSP Go to Defitinion on non-project files
 	use({
 		"Decodetalkers/csharpls-extended-lsp.nvim",
 	})

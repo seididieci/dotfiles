@@ -1,54 +1,6 @@
-local lsp = require("lsp-zero")
+local lsp_zero = require("lsp-zero")
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-	"tsserver",
-	"eslint",
-})
-
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-local cmp_select = { behaviour = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-	["<C-y>"] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
-
-	["<Tab>"] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_next_item()
-		-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-		-- that way you will only jump inside the snippet region
-		elseif luasnip.expand_or_jumpable() then
-			luasnip.expand_or_jump()
-		else
-			fallback()
-		end
-	end, { "i", "s" }),
-
-	["<S-Tab>"] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_prev_item()
-		elseif luasnip.jumpable(-1) then
-			luasnip.jump(-1)
-		else
-			fallback()
-		end
-	end, { "i", "s" }),
-})
-
-lsp.set_preferences({
-	sign_icons = {},
-})
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-})
-
-lsp.on_attach(function(_, bufnr)
+local lsp_attach = function(_, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
 	vim.keymap.set("n", "gd", function()
@@ -84,28 +36,129 @@ lsp.on_attach(function(_, bufnr)
 	vim.keymap.set("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end, opts)
-end)
+end
 
-lsp.configure("vuels", {
-	settings = {
-		vetur = {
-			experimental = {
-				templateInterpolationService = true,
-			},
-		},
+lsp_zero.extend_lspconfig({
+	sign_text = {
+		error = "✘",
+		warn = "▲",
+		hint = "⚑",
+		info = "»",
 	},
+	lsp_attach = lsp_attach,
+	float_border = "rounded",
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
-lsp.configure("csharp_ls", {
+require("mason").setup({})
+require("mason-lspconfig").setup({
 	handlers = {
-		["textDocument/definition"] = require("csharpls_extended").handler,
-		["textDocument/typeDefinition"] = require("csharpls_extended").handler,
+		function(server_name)
+			require("lspconfig")[server_name].setup({})
+		end,
+		csharp_ls = function()
+			require("lspconfig").csharp_ls.setup({
+				handlers = {
+					["textDocument/definition"] = require("csharpls_extended").handler,
+					["textDocument/typeDefinition"] = require("csharpls_extended").handler,
+				},
+			})
+		end,
+		vuels = function()
+			lsp_zero.configure("vuels", {
+				settings = {
+					vetur = {
+						experimental = {
+							templateInterpolationService = true,
+						},
+					},
+				},
+			})
+		end,
+		lua_ls = function()
+			lsp_zero.configure("lua_ls", {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+						workspace = {
+							library = { vim.env.VIMRUNTIME },
+						},
+					},
+				},
+			})
+		end,
 	},
 })
 
-lsp.nvim_workspace()
+local cmp = require("cmp")
+local cmp_action = lsp_zero.cmp_action()
+local luasnip = require("luasnip")
 
-lsp.setup()
+local cmp_select = { behaviour = cmp.SelectBehavior.Select }
+local cmp_mappings = cmp.mapping.preset.insert({
+	["<C-j>"] = cmp.mapping.select_prev_item(cmp_select),
+	["<C-k>"] = cmp.mapping.select_next_item(cmp_select),
+	["<Enter>"] = cmp.mapping.confirm({ select = true }),
+	["<C-Space>"] = cmp.mapping.complete(),
+	-- If nothing is selected (including preselections) add a newline as usual.
+	-- If something has explicitly been selected by the user, select it.
+	["<CR>"] = cmp.mapping({
+		i = cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		s = cmp.mapping.confirm({ select = true }),
+		c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+	}),
+
+	-- scroll up and down the documentation window
+	["<C-u>"] = cmp.mapping.scroll_docs(-4),
+	["<C-d>"] = cmp.mapping.scroll_docs(4),
+
+	["<Tab>"] = cmp_action.luasnip_jump_forward(),
+	["<S-Tab>"] = cmp_action.luasnip_jump_backward(),
+})
+
+cmp.setup({
+	completion = {
+		completeopt = "menu,menuone,noinsert",
+	},
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "path" },
+	},
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
+	},
+	mapping = cmp_mappings,
+	view = {
+		entries = { name = "custom", selection_order = "near_cursor" },
+	},
+
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			if vim.tbl_contains({ "path" }, entry.source.name) then
+				local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+				if icon then
+					vim_item.kind = icon
+					vim_item.kind_hl_group = hl_group
+					return vim_item
+				end
+			end
+			local kind = require("lspkind").cmp_format({ with_text = true })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
+			return kind
+		end,
+	},
+})
+
+lsp_zero.setup()
 
 vim.diagnostic.config({
 	virtual_text = true,
