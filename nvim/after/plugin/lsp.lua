@@ -102,13 +102,6 @@ local cmp_mappings = cmp.mapping.preset.insert({
 	["<C-k>"] = cmp.mapping.select_next_item(cmp_select),
 	["<Enter>"] = cmp.mapping.confirm({ select = true }),
 	["<C-Space>"] = cmp.mapping.complete(),
-	-- If nothing is selected (including preselections) add a newline as usual.
-	-- If something has explicitly been selected by the user, select it.
-	["<CR>"] = cmp.mapping({
-		i = cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		s = cmp.mapping.confirm({ select = true }),
-		c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-	}),
 
 	-- scroll up and down the documentation window
 	["<C-u>"] = cmp.mapping.scroll_docs(-4),

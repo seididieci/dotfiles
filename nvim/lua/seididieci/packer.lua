@@ -7,6 +7,7 @@ return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 	use("rstacruz/vim-closer")
+	use({ "kyazdani42/nvim-web-devicons" })
 
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -57,14 +58,14 @@ return require("packer").startup(function(use)
 		},
 	})
 
-  -- This is for the C# LSP Go to Defitinion on non-project files
+	-- This is for the C# LSP Go to Defitinion on non-project files
 	use({
 		"Decodetalkers/csharpls-extended-lsp.nvim",
 	})
 
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = { "kyazdani42/nvim-web-devicons" },
 	})
 
 	use("lewis6991/gitsigns.nvim")
