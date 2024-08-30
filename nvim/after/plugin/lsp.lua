@@ -98,8 +98,8 @@ local luasnip = require("luasnip")
 
 local cmp_select = { behaviour = cmp.SelectBehavior.Select }
 local cmp_mappings = cmp.mapping.preset.insert({
-	["<C-j>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-k>"] = cmp.mapping.select_next_item(cmp_select),
+	["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+	["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
 	["<Enter>"] = cmp.mapping.confirm({ select = true }),
 	["<C-Space>"] = cmp.mapping.complete(),
 
@@ -117,6 +117,7 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
