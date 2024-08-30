@@ -1,4 +1,4 @@
-local function on_attach(buffnr)
+local function on_attach()
   local gs = package.loaded.gitsigns
 
   -- Navigation
