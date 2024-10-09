@@ -89,6 +89,19 @@ require("mason-lspconfig").setup({
 				},
 			})
 		end,
+		yamlls = function()
+			lsp_zero.configure("yamlls", {
+				on_attach = function(client, bufnr)
+					client.server_capabilities.documentFormattingProvider = true
+					lsp_attach(client, bufnr)
+				end,
+				settings = {
+					yaml = {
+						keyOrdering = false,
+					},
+				},
+			})
+		end,
 	},
 })
 
@@ -160,12 +173,11 @@ vim.diagnostic.config({
 	underline = true,
 })
 
-
-vim.api.nvim_set_keymap('n', '<leader>x', '', {
-  noremap = true,
-  callback = function()
-    for _, client in ipairs(vim.lsp.get_clients()) do
-      require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
-    end
-  end
+vim.api.nvim_set_keymap("n", "<leader>x", "", {
+	noremap = true,
+	callback = function()
+		for _, client in ipairs(vim.lsp.get_clients()) do
+			require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
+		end
+	end,
 })
