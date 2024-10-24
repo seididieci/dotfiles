@@ -105,4 +105,6 @@ return require("packer").startup(function(use)
 			"hrsh7th/nvim-cmp",
 		},
 	})
+
+	use("sindrets/diffview.nvim")
 end)
