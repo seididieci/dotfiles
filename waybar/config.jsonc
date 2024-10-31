@@ -20,6 +20,7 @@
   "modules-right": [
     "tray",
     "idle_inhibitor",
+    "custom/notification",
     "network",
     "sway/language",
     "battery",
