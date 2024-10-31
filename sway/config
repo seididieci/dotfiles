@@ -1,35 +1,45 @@
 ### Variables
+#
+# Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
+# Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
 
+# Your preferred terminal emulator
+# Recommends: foot
 set $term foot
 
-set $menu ~/.config/sway/sirula
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# Recommends: rofi-wayland
+set $rofi_cmd rofi \
+        -terminal '$term'
 
-### Polkit
-exec_always lxpolkit
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
-### Notifications
-exec swaync
-bindsym $mod+Shift+n exec swaync-client -t -sw
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Requires: desktop-backgrounds-compat, swaybg
+output * bg /usr/share/backgrounds/default.png fill
 
-### Set azote background
-exec ~/.azotebg
-
-### Idle configuration
-exec swayidle -w \
-        timeout 600 'swaylock --grace 5 -f' \
-        timeout 660 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-        before-sleep 'swaylock -f' 
-
-bindsym $mod+Ctrl+l exec swaylock -f
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Input configuration
-input "1739:52694:DELL095A:00_06CB:CDD6_Touchpad" {
+input "2:7:SynPS/2_Synaptics_TouchPad" {
   tap enabled
   dwt enabled
 }
@@ -63,8 +73,8 @@ for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="dosbox-staging"] floating enable
 for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
 
-# for_window [app_id=".*"] opacity 1
-
+### Key bindings
+#
 # Basics:
 #
     # Start a terminal
@@ -86,12 +96,9 @@ for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-    # Sticky window
-    bindsym $mod+Shift+s sticky toggle
-
     # Exit sway (logs you out of your Wayland session)
-    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
     bindsym $mod+Shift+e exec wlogout
+
 #
 # Moving around:
 #
@@ -180,30 +187,7 @@ for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-
-#
-# Screenshot:
-#
-    # Select an area and copy to clipboard
-    bindsym $mod+Print exec sh -c 'grim -g "$(slurp)" - | wl-copy'
-    bindsym Print exec sh -c 'grim - | wl-copy'
-
-#
-# Special Keys:
-#
-    bindsym XF86MonBrightnessDown exec light -U 10
-    bindsym XF86MonBrightnessUp exec light -A 10
-    bindsym $mod+Escape exec systemctl suspend
-    bindsym $mod+c exec sh -c 'code --enable-features=UseOzonePlatform --ozone-platform=wayland'
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioPlay exec playerctl play-pause
-    bindsym XF86AudioNext exec playerctl next
-    bindsym XF86AudioPrev exec playerctl previous
-    bindsym --whole-window --border $mod+button4 exec swaymsg opacity plus 0.1
-    bindsym --whole-window --border $mod+button5 exec swaymsg opacity minus 0.1
-
+    
 #
 # Resizing containers:
 #
@@ -229,38 +213,25 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Include configs from 3 locations:
+#  - /usr/share/sway/config.d
+#  - /etc/sway/config.d
+#  - $XDG_CONFIG_HOME/sway/config.d ($HOME/.config/sway/config.d)
 #
-# Status Bar:
+# If multiple directories contain the files with the same name, the later
+# directory takes precedence; `$XDG_CONFIG_HOME/sway/config.d/20-swayidle.conf`
+# will always be loaded instead of `/usr/share/sway/config.d/20-swayidle.conf`
+# or `/etc/sway/config.d/20-swayidle.conf`
 #
-bar {
-  swaybar_command waybar
-}
-
-# Network configuration
-exec nm-applet --indicator
-
-set $base00 #191724
-set $base01 #1f1d2e
-set $base02 #26233a
-set $base03 #555169
-set $base04 #6e6a86
-set $base05 #e0def4
-set $base06 #f0f0f3
-set $base07 #c5c3ce
-set $base08 #e2e1e7
-set $base09 #eb6f92
-set $base0A #f6c177
-set $base0B #ebbcba
-set $base0C #31748f
-set $base0D #9ccfd8
-set $base0E #c4a7e7
-set $base0F #e5e5e5
-
-client.focused          $base05 $base0D $base00 $base0A $base0D
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
-
-include /etc/sway/config.d/*
+# This mechanism permits overriding our default configuration per-system
+# (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
+# want to modify/override in the higher-level directory.
+#
+# For example, to disable the default bar from Fedora configs, you'll need to
+#     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
+#
+# Note the quoting, the $() and the arguments quoting. All the parts are equally
+# important to make the magic work. And if you want to learn the secret behind
+# the trick, it's all in the `wordexp(3)`.
+#
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
