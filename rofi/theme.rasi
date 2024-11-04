@@ -112,8 +112,8 @@ textbox-prompt-colon {
 }
 entry {
     enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
     cursor:                      text;
     placeholder:                 "Search...";
     placeholder-color:           inherit;
