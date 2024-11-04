@@ -37,8 +37,8 @@ while true; do
 		fi
 
 		# exit if print fails
-		printf '{"text":"%s","tooltip":"%s","class":"%s","percentage":%s,"markup":"pango"}\n' \
-			"$text" "$playing $name | $tooltip" "p$percentage" "$percentage" || break 2
+		printf '{"text":"%s","tooltip":"%s","class":"p%s","percentage":%s,"markup":"pango"}\n' \
+			"$text" "$playing $name | $tooltip" "$percentage" "$percentage" || break 2
 
 	done < <(
 		# requires playerctl>=2.0
