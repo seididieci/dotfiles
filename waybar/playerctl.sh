@@ -15,16 +15,16 @@ while true; do
 		tooltip="${artist:+$artist ${title:+- }}${title:+$title }${hpos:+$hpos${hlen:+|}}$hlen"
 
 
-		# json escaping
+		# json escapin
 		line="${line//\"/\\\"}"
     tooltip="${tooltip//\"/\\\"}"
 		((percentage = length ? (100 * (position % length)) / length : 0))
 		case $playing in
-		⏸️ | Paused) text='<span font=\"FontAwesome\"> <span>'"$line"'</span> <span>'"$timings"'</span></span>'
+		⏸️ | Paused) text='  '"$line"' '"$timings"' '
                 playing="";;
-		▶️ | Playing) text='<span font=\"FontAwesome\"> <span>'"$line"'</span> <span>'"$timings"'</span></span>'
+		▶️ | Playing) text='  '"$line"' '"$timings"' '
                  playing="";;
-		*) text='<span>  Stopped </span>'
+		*) text='  Stopped '
        line="Stopped"
        playing="";;
 		esac
@@ -37,7 +37,7 @@ while true; do
 		fi
 
 		# exit if print fails
-		printf '{"text":"%s","tooltip":"%s","class":"%s","percentage":%s}\n' \
+		printf '{"text":"%s","tooltip":"%s","class":"p%s","percentage":%s,"markup":"pango"}\n' \
 			"$text" "$playing $name | $tooltip" "$percentage" "$percentage" || break 2
 
 	done < <(
