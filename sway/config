@@ -29,7 +29,7 @@ set $menu $rofi_cmd -show drun -theme ~/.config/rofi/theme.rasi
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/default.png fill
+output * bg /usr/share/backgrounds/default-dark.png fill
 
 #
 # Example configuration:
@@ -49,6 +49,12 @@ input "*" {
   xkb_layout "us,it"
   xkb_variant "dvorak,"
   xkb_options grp:ctrls_toggle,compose:ralt
+}
+
+input "1267:10956:ELAN_Touchscreen" {
+    drag enable
+    drag_lock enable
+    map_to_output eDP-1
 }
 
 ### Windowing configuration
