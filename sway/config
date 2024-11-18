@@ -76,6 +76,7 @@ for_window [title=".*Azure Data Studio"] opacity .9
 for_window [app_id="Alacritty"] opacity .9
 for_window [app_id="foot"] opacity .9
 for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="galculator"] floating enable
 for_window [app_id="dosbox-staging"] floating enable
 for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
 
