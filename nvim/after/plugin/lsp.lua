@@ -75,6 +75,23 @@ require("mason-lspconfig").setup({
 				},
 			})
 		end,
+		ts_ls = function()
+			local mason_registry = require("mason-registry")
+			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
+			lsp_zero.configure("ts_ls", {
+				filetypes = { "vue", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
+						},
+					},
+				},
+			})
+		end,
 		lua_ls = function()
 			lsp_zero.configure("lua_ls", {
 				settings = {
