@@ -14,4 +14,4 @@ require("cyberdream").setup({
 	terminal_colors = true,
 })
 
-ColorMyPencils("cyberdream")
+ColorMyPencils("moonfly")

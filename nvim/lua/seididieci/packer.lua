@@ -14,24 +14,18 @@ return require("packer").startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
-	use({
-		"rose-pine/neovim",
-		as = "rose-pine",
-		-- config = function()
-		--   vim.cmd('colorscheme rose-pine')
-		-- end
-	})
+	-- Color Schemes
+	use({ "rose-pine/neovim", as = "rose-pine" })
+	use({ "bluz71/vim-moonfly-colors", as = "moonfly" })
+	use({ "scottmckendry/cyberdream.nvim" })
+	use({ "projekt0n/github-nvim-theme" })
+	use({ "EdenEast/nightfox.nvim" })
 
-	use({
-		"scottmckendry/cyberdream.nvim",
-	})
-
+	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("nvim-treesitter/nvim-treesitter-context")
-	use({
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-	})
+
+	use({ "ThePrimeagen/harpoon", branch = "harpoon2" })
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
 
