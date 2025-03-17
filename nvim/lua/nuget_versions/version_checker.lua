@@ -57,6 +57,32 @@ local function decode_json(obj)
 	end)
 end
 
+local function update_package()
+	local buffer = vim.api.nvim_get_current_buf()
+	local line_number = vim.api.nvim_win_get_cursor(0)[1] - 1 -- Get current line number (0-based)
+
+	local extmark = vim.api.nvim_buf_get_extmarks(
+		buffer,
+		ns_id,
+		{ line_number, 0 },
+		{ line_number, -1 },
+		{ details = false }
+	)
+	if #extmark > 0 then
+		local csproj_path = vim.api.nvim_buf_get_name(0)
+		local cmd = "dotnet"
+
+		local line = vim.api.nvim_get_current_line()
+		local include_value = line:match('Include="([^"]+)"')
+
+		if include_value then
+			local package_name = include_value
+
+			vim.system({ cmd, "add", csproj_path, package_name })
+		end
+	end
+end
+
 local function check_outdated_background(csproj_path)
 	local cmd = "dotnet"
 	vim.system({ cmd, "list", csproj_path, "package", "--outdated", "--format", "json" }, { text = true }, decode_json)
@@ -67,6 +93,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	pattern = "*.csproj",
 	callback = function()
 		local csproj_path = vim.api.nvim_buf_get_name(0)
+		vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
 		check_outdated_background(csproj_path)
 	end,
 })
