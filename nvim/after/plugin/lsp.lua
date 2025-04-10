@@ -60,17 +60,6 @@ require("mason-lspconfig").setup({
       require("lspconfig").csharp_ls.setup({})
       require("csharpls_extended").buf_read_cmd_bind()
 		end,
-		vuels = function()
-			lsp_zero.configure("vuels", {
-				settings = {
-					vetur = {
-						experimental = {
-							templateInterpolationService = true,
-						},
-					},
-				},
-			})
-		end,
 		ts_ls = function()
 			local mason_registry = require("mason-registry")
 			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
