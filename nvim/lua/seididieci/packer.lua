@@ -28,6 +28,13 @@ return require("packer").startup(function(use)
 	use({ "ThePrimeagen/harpoon", branch = "harpoon2" })
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
+	use({
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
