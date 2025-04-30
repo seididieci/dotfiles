@@ -6,6 +6,7 @@
 # Neovim configurations
 !nvim/
 nvim/plugin/packer_compiled.lua
+nvim/lazy-lock.json
 
 # Adds sway stuff
 !sway/
