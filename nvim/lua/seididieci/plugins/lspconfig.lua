@@ -141,7 +141,7 @@ return {
         ["yamlls"] = function()
           local lspconfig = require("lspconfig")
           lspconfig.yamlls.setup({
-            on_attach = function(client, bufnr)
+            on_attach = function(client)
               client.server_capabilities.documentFormattingProvider = true
             end,
             settings = {
@@ -240,8 +240,8 @@ return {
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-        vim.keymap.set("n", "[d", function() vim.lsp.diagnostic.goto_next() end, opts)
-        vim.keymap.set("n", "]d", function() vim.lsp.diagnostic.goto_prev() end, opts)
+        --vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+        --vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
       end
     })
   end

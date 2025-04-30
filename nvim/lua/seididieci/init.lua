@@ -3,3 +3,5 @@ require("seididieci.remap")
 require("seididieci.set")
 
 require("seididieci.lazy")
+
+ColorMyPencils("tokyonight")
