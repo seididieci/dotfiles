@@ -1,17 +1,23 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
+    -- LSP Support
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+
+    -- Autocompletion
     "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lua",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "j-hui/fidget.nvim",
     "artemave/workspace-diagnostics.nvim",
+    "onsails/lspkind.nvim",
     --{ "rafamadriz/friendly-snippets" },
   },
 
@@ -40,7 +46,21 @@ return {
             capabilities = capabilities
           }
         end,
+        ["csharp_ls"] = function()
+          -- This hasdler is needed to avoid "Press ENTER or type command to continue" message
+          local orig_handler = vim.lsp.handlers["window/showMessage"]
 
+          ---@param params lsp.LogMessageParams
+          vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
+            local client = vim.lsp.get_client_by_id(ctx.client_id) or {}
+
+            if client.name == "csharp_ls" and params.type == 3 then
+              return
+            end
+
+            return orig_handler(err, params, ctx, config)
+          end
+        end,
         ["lua_ls"] = function()
           local lspconfig = require("lspconfig")
           lspconfig.lua_ls.setup {
@@ -158,7 +178,29 @@ return {
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
-      })
+      }),
+      view = {
+        entries = { name = "custom", selection_order = "near_cursor" },
+      },
+
+      formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+          if vim.tbl_contains({ "path" }, entry.source.name) then
+            local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+            if icon then
+              vim_item.kind = icon
+              vim_item.kind_hl_group = hl_group
+              return vim_item
+            end
+          end
+          local kind = require("lspkind").cmp_format({ with_text = true })(entry, vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+          kind.kind = " " .. (strings[1] or "") .. " "
+          kind.menu = "    (" .. (strings[2] or "") .. ")"
+          return kind
+        end,
+      },
     })
 
     vim.diagnostic.config({
@@ -170,7 +212,7 @@ return {
         focusable = false,
         style = "minimal",
         border = "rounded",
-        source = "always",
+        source = true,
         header = "",
         prefix = "",
       },
@@ -198,8 +240,8 @@ return {
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set("n", "[d", function() vim.lsp.diagnostic.goto_next() end, opts)
+        vim.keymap.set("n", "]d", function() vim.lsp.diagnostic.goto_prev() end, opts)
       end
     })
   end
