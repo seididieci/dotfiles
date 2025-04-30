@@ -4,7 +4,6 @@ return {
     "nvim-neotest/nvim-nio",
     "rcarriga/nvim-dap-ui",
     "theHamsta/nvim-dap-virtual-text",
-    "mxsdev/nvim-dap-vscode-js",
   },
   config = function()
     local dap = require("dap")
