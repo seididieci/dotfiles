@@ -31,11 +31,16 @@ local function on_attach()
   vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
-require("gitsigns").setup({
-  current_line_blame = false,
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = 'right_align',
-  },
-  on_attach = on_attach,
-})
+return {
+  "lewis6991/gitsigns.nvim",
+  config = function()
+    require("gitsigns").setup({
+      current_line_blame = false,
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'right_align',
+      },
+      on_attach = on_attach,
+    })
+  end
+}
