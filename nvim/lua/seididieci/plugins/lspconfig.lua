@@ -22,13 +22,6 @@ return {
   },
 
   config = function()
-    local cmp = require('cmp')
-    local cmp_lsp = require("cmp_nvim_lsp")
-    local capabilities = vim.tbl_deep_extend(
-      "force",
-      {},
-      vim.lsp.protocol.make_client_capabilities(),
-      cmp_lsp.default_capabilities())
 
     vim.lsp.config('lua_ls', {
       settings = {
@@ -130,6 +123,7 @@ return {
       automatic_enable = true,
     })
 
+    local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({
