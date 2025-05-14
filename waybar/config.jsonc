@@ -7,6 +7,7 @@
   // Choose the order of the modules
   "modules-left": [
     "sway/workspaces",
+    "hyprland/workspaces",
     "temperature",
     "cpu",
     "memory",
@@ -15,7 +16,8 @@
     "custom/playerctl"
   ],
   "modules-center": [
-    "sway/window"
+    "sway/window",
+    "hyprland/window"
   ],
   "modules-right": [
     "tray",
@@ -59,6 +61,12 @@
     "icon": true,
     "icon-size": 16,
     "format": "{}"
+  },
+  "hyprland/window": {
+    "icon": true,
+    "icon-size": 16,
+    "format": "{}",
+    "separate-outputs": true
   },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"

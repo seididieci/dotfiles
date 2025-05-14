@@ -30,6 +30,93 @@ return {
       vim.lsp.protocol.make_client_capabilities(),
       cmp_lsp.default_capabilities())
 
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim", "it", "describe", "before_each", "after_each" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+        },
+      },
+    })
+
+    vim.lsp.config('volar', {
+      settings = {
+        typescript = {
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            parameterTypes = {
+              enabled = true,
+              suppressWhenArgumentMatchesName = true,
+            },
+            variableTypes = { enabled = true },
+          },
+        },
+      },
+    })
+
+    vim.lsp.config('ts_ls', {
+      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+      init_options = {
+        plugins = { -- I think this was my breakthrough that made it work
+          {
+            name = "@vue/typescript-plugin",
+            location = vim.fn.exepath("vue-language-server"),
+            languages = { "vue" },
+          },
+        },
+      },
+      settings = {
+        typescript = {
+          tsserver = { useSyntaxServer = false },
+          inlayHints = {
+            includeInlayParameterNameHints = 'all',
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      },
+    })
+
+    vim.lsp.config('csharp_ls', {})
+    local orig_handler = vim.lsp.handlers["window/showMessage"]
+    vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
+      local client = vim.lsp.get_client_by_id(ctx.client_id) or {}
+
+      if client.name == "csharp_ls" and params.type == 3 then
+        return
+      end
+
+      return orig_handler(err, params, ctx, config)
+    end
+
+    vim.lsp.config('yamlls', {
+      on_attach = function(client)
+        client.server_capabilities.documentFormattingProvider = true
+      end,
+      settings = {
+        yaml = {
+          keyOrdering = false,
+        },
+      },
+    })
+
     require("fidget").setup({})
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -40,118 +127,7 @@ return {
         "csharp_ls",
         "volar",
       },
-      handlers = {
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup {
-            capabilities = capabilities
-          }
-        end,
-        ["csharp_ls"] = function()
-          -- This hasdler is needed to avoid "Press ENTER or type command to continue" message
-          local orig_handler = vim.lsp.handlers["window/showMessage"]
-
-          ---@param params lsp.LogMessageParams
-          vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
-            local client = vim.lsp.get_client_by_id(ctx.client_id) or {}
-
-            if client.name == "csharp_ls" and params.type == 3 then
-              return
-            end
-
-            return orig_handler(err, params, ctx, config)
-          end
-        end,
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim", "it", "describe", "before_each", "after_each" },
-                },
-                workspace = {
-                  library = { vim.env.VIMRUNTIME },
-                },
-              }
-            }
-          }
-        end,
-        ["ts_ls"] = function()
-          local lspconfig = require("lspconfig")
-          local mason_registry = require("mason-registry")
-          local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-              .. "/node_modules/@vue/language-server"
-          lspconfig.ts_ls.setup({
-            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-            init_options = {
-              plugins = { -- I think this was my breakthrough that made it work
-                {
-                  name = "@vue/typescript-plugin",
-                  location = vue_language_server_path,
-                  languages = { "vue" },
-                },
-              },
-            },
-            settings = {
-              typescript = {
-                tsserver = { useSyntaxServer = false },
-                inlayHints = {
-                  includeInlayParameterNameHints = 'all',
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = true,
-                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
-                },
-              },
-            },
-          })
-        end,
-        ["volar"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.volar.setup({
-            --on_attach = function(client)
-            --  client.server_capabilities.documentFormattingProvider = false
-            --  client.server_capabilities.documentRangeFormattingProvider = false
-            --end,
-            --init_options = {
-            --  vue = {
-            --    hybridMode = false,
-            --  },
-            --},
-            settings = {
-              typescript = {
-                inlayHints = {
-                  enumMemberValues = { enabled = true },
-                  functionLikeReturnTypes = { enabled = true },
-                  propertyDeclarationTypes = { enabled = true },
-                  parameterTypes = {
-                    enabled = true,
-                    suppressWhenArgumentMatchesName = true,
-                  },
-                  variableTypes = { enabled = true },
-                },
-              },
-            },
-          })
-        end,
-        ["yamlls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.yamlls.setup({
-            on_attach = function(client)
-              client.server_capabilities.documentFormattingProvider = true
-            end,
-            settings = {
-              yaml = {
-                keyOrdering = false,
-              },
-            },
-          })
-        end,
-      }
+      automatic_enable = true,
     })
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
