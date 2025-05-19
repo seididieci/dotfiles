@@ -6,7 +6,7 @@ return {
     local tools = require("llm.tools")
     require("llm").setup({
       url = "http://localhost:11434/api/chat",
-      model = "codellama",
+      model = "qwen2.5-coder",
       api_type = "ollama",
 
       -- display diff [require by action_handler]
@@ -103,10 +103,94 @@ return {
             },
           },
         },
+        Completion = {
+          handler = tools.completion_handler,
+          opts = {
+            -------------------------------------------------
+            ---                   ollama
+            -------------------------------------------------
+            url = "http://localhost:11434/v1/completions",
+            model = "qwen2.5-coder",
+            api_type = "ollama",
+            ------------------- end ollama ------------------
+
+            n_completions = 3,
+            context_window = 512,
+            max_tokens = 128,
+
+            -- A mapping of filetype to true or false, to enable completion.
+            filetypes = { sh = false },
+
+            -- Whether to enable completion of not for filetypes not specifically listed above.
+            default_filetype_enabled = true,
+
+            auto_trigger = true,
+
+            -- just trigger by { "@", ".", "(", "[", ":", " " } for `style = "nvim-cmp"`
+            only_trigger_by_keywords = true,
+
+            style = "virtual_text", -- nvim-cmp or blink.cmp
+
+            timeout = 10,           -- max request time
+
+            -- only send the request every x milliseconds, use 0 to disable throttle.
+            throttle = 1000,
+            -- debounce the request in x milliseconds, set to 0 to disable debounce
+            debounce = 400,
+
+            --------------------------------
+            ---   just for virtual_text
+            --------------------------------
+            keymap = {
+              virtual_text = {
+                accept = {
+                  mode = "i",
+                  keys = "<C-g>",
+                },
+                next = {
+                  mode = "i",
+                  keys = "<C-.>",
+                },
+                prev = {
+                  mode = "i",
+                  keys = "<C-,>",
+                },
+                toggle = {
+                  mode = "n",
+                  keys = "<leader>cp",
+                },
+              },
+            },
+          },
+        },
+        DocString = {
+          prompt =
+              "You are an AI programming assistant. You need to write a really good docstring that follows a best practice for the given language.\n" ..
+              "Your core tasks include:\n" ..
+              "- parameter and return types (if applicable).\n" ..
+              "- any errors that might be raised or returned, depending on the language.\n" ..
+              "You must:\n" ..
+              "- Place the generated docstring before the start of the code.\n" ..
+              "- Follow the format of examples carefully if the examples are provided.\n" ..
+              "- Use Markdown formatting in your answers.\n" ..
+              "- Include the programming language name at the start of the Markdown code blocks.",
+          handler = tools.action_handler,
+          opts = {
+            only_display_diff = true,
+            templates = {
+              lua =
+                  "- For the Lua language, you should use the LDoc style.\n" ..
+                  "- Start all comment lines with '---'.",
+            },
+          },
+        },
       },
     })
   end,
   keys = {
     { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>" },
+    { "<leader>gp", mode = "n", "<cmd>LLMAppHandler CommitMsg<cr>" },
+    { "<leader>as", mode = "v", "<cmd>LLMAppHandler Ask<cr>" },
+    { "<leader>as", mode = "n", "<cmd>LLMAppHandler Ask<cr>" },
   },
 }
