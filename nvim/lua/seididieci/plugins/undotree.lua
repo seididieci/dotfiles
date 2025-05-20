@@ -1,7 +1,7 @@
 local function get_undo_dir()
   local undodir = vim.fn.expand('~/.undodir')
   if vim.fn.isdirectory(undodir) == 0 then
-    vim.fn.mkdir(undodir, 'p', 448)
+    vim.fn.mkdir(undodir, 'p', '448')
   end
 
   -- Get current file path
