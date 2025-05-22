@@ -31,10 +31,11 @@ set $menu $rofi_cmd -show drun -theme ~/.config/rofi/theme.rasi
 # Requires: desktop-backgrounds-compat, swaybg
 output * bg /usr/share/backgrounds/default-dark.jxl fill
 
-output HDMI-A-1 resolution 1920x1080 position 0,0
-output eDP-1 resolution 1920x1080 position 0,1080
+#output HDMI-A-1 resolution 1920x1080 position 0,0
+#output eDP-1 resolution 1920x1080 position 0,1080
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+output HDMI-A-1 mode 3440x1440@100Hz
 
 ### Input configuration
 input "2:7:SynPS/2_Synaptics_TouchPad" {
@@ -77,6 +78,7 @@ for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="galculator"] floating enable
 for_window [app_id="dosbox-staging"] floating enable
 for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
+for_window [app_id="showmethekey-gtk"] floating enable, sticky enable, resize set 1340 140, move absolute position 1050 1300,
 
 ### Key bindings
 #
