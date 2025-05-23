@@ -22,7 +22,6 @@ return {
   },
 
   config = function()
-
     vim.lsp.config('lua_ls', {
       settings = {
         Lua = {
@@ -42,7 +41,8 @@ return {
       },
     })
 
-    vim.lsp.config('volar', {
+    vim.lsp.config('vue_ls', {
+      filetypes = { "vue" },
       settings = {
         typescript = {
           inlayHints = {
@@ -118,7 +118,7 @@ return {
         "rust_analyzer",
         "ts_ls",
         "csharp_ls",
-        "volar",
+        "vue_ls",
       },
       automatic_enable = true,
     })
