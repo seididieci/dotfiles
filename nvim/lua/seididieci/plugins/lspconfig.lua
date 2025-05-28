@@ -78,10 +78,10 @@ return {
             includeInlayParameterNameHintsWhenArgumentMatchesName = true,
             includeInlayFunctionParameterTypeHints = true,
             includeInlayVariableTypeHints = true,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
             includeInlayPropertyDeclarationTypeHints = true,
             includeInlayFunctionLikeReturnTypeHints = true,
             includeInlayEnumMemberValueHints = true,
+            importModuleSpecifierPreference = 'non-relative',
           },
         },
       },
@@ -210,8 +210,7 @@ return {
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-        --vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-        --vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, opts)
       end
     })
   end
