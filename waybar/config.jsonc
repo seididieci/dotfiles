@@ -162,9 +162,9 @@
     "format": "{}% "
   },
   "custom/gpu-usage": {
-    "exec": "radeontop -d - -l 1 | tr -d '\n' | cut -s -d ',' -f3 | cut -s -d ' ' -f3 | tr -d '%' | awk '{ print $1 }' | tr -d '\n'",
+    "exec": "radeontop -d - -l 1 | tr -d '\n' | cut -s -d ',' -f3 | cut -s -d ' ' -f3 | tr -d '%' | awk '{ printf \"%d\\n\", ($1 >= 100) ? 100 : ($1 >= 0.5) ? int($1) + 1 : int($1) }'",
     "exec-if": "command -v radeontop",
-    "format": "{}%  GPU",
+    "format": "{}% ",
     "return-type": "",
     "interval": 4
   },
