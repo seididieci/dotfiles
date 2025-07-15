@@ -67,18 +67,19 @@ for_window [app_id="soffice"] floating enable
 for_window [app_id="java" title="Dbeaver"] floating enable
 for_window [app_id="java" title="DBeaver "] floating enable
 for_window [title=".*Visual Studio Code"] opacity .9
-for_window [app_id="firefox" title="Developer Tools.*"] opacity .9
+#for_window [app_id="firefox" title="Developer Tools.*"] opacity .9
 for_window [app_id="firefox" title="Library"] floating enable
 #for_window [app_id="firefox" title=""] floating enable
 for_window [app_id="org.gnome.Nautilus"] opacity .9
 for_window [title=".*Azure Data Studio"] opacity .9
 for_window [app_id="Alacritty"] opacity .9
-for_window [app_id="foot"] opacity .9
+#for_window [app_id="foot"] opacity .9
 for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="galculator"] floating enable
 for_window [app_id="dosbox-staging"] floating enable
 for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
 for_window [app_id="showmethekey-gtk"] floating enable, sticky enable, resize set 1340 140, move absolute position 1050 1300,
+for_window [title="Picture-in-Picture"] floating enable, sticky enable
 
 ### Key bindings
 #
@@ -194,7 +195,9 @@ for_window [app_id="showmethekey-gtk"] floating enable, sticky enable, resize se
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-    
+
+    bindsym --whole-window --border $mod+button4 exec swaymsg opacity plus 0.1
+    bindsym --whole-window --border $mod+button5 exec swaymsg opacity minus 0.1
 #
 # Resizing containers:
 #

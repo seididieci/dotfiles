@@ -7,8 +7,8 @@ return {
   },
   config = function()
     local dap = require("dap")
-
     -- Some mappings to ease dap Use
+    -- See `:help dap-mappings` for usage
     vim.keymap.set('n', '<F5>', function() dap.continue() end)
     vim.keymap.set('n', '<F3>', function() dap.restart() end)
     vim.keymap.set('n', '<F4>', function() dap.run_last() end)

@@ -26,12 +26,12 @@ return {
               "You are an expert at following the Conventional Commit specification.\n" ..
               "Given the git diff listed below, please generate a commit message for me using the Conventional Commit specification in the first line.\n" ..
               "1. First line: conventional commit format (type: concise description) (remember to use semantic types like feat, fix, docs, style, refactor, perf, test, chore, etc.).\n" ..
-              "2. Optional bullet points if more context helps:\n" ..
-              "- Keep the second line blank\n" ..
+              "2. Optional single bullet point list if more context helps:\n" ..
               "- Keep them short and direct\n" ..
               "- Focus on what changed\n" ..
               "- Always be terse\n" ..
               "- Don't overly explain\n" ..
+              "- Don't add blank lines\n" ..
               "- Drop any fluffy or formal language\n" ..
               "Return ONLY the commit message - no introduction, no explanation, no quotes around it.\n" ..
               "Based on this format, generate appropriate commit messages. Respond with message only. DO NOT format the message in Markdown code blocks, DO NOT use backticks:\n" ..
@@ -100,66 +100,6 @@ return {
                 keys = { "<esc>" },
               },
               action = nil,
-            },
-          },
-        },
-        Completion = {
-          handler = tools.completion_handler,
-          opts = {
-            -------------------------------------------------
-            ---                   ollama
-            -------------------------------------------------
-            url = "http://localhost:11434/v1/completions",
-            model = "qwen2.5-coder",
-            api_type = "ollama",
-            ------------------- end ollama ------------------
-
-            n_completions = 3,
-            context_window = 512,
-            max_tokens = 128,
-
-            -- A mapping of filetype to true or false, to enable completion.
-            filetypes = { sh = false },
-
-            -- Whether to enable completion of not for filetypes not specifically listed above.
-            default_filetype_enabled = true,
-
-            auto_trigger = true,
-
-            -- just trigger by { "@", ".", "(", "[", ":", " " } for `style = "nvim-cmp"`
-            only_trigger_by_keywords = true,
-
-            style = "virtual_text", -- nvim-cmp or blink.cmp
-
-            timeout = 10,           -- max request time
-
-            -- only send the request every x milliseconds, use 0 to disable throttle.
-            throttle = 1000,
-            -- debounce the request in x milliseconds, set to 0 to disable debounce
-            debounce = 400,
-
-            --------------------------------
-            ---   just for virtual_text
-            --------------------------------
-            keymap = {
-              virtual_text = {
-                accept = {
-                  mode = "i",
-                  keys = "<C-g>",
-                },
-                next = {
-                  mode = "i",
-                  keys = "<C-.>",
-                },
-                prev = {
-                  mode = "i",
-                  keys = "<C-,>",
-                },
-                toggle = {
-                  mode = "n",
-                  keys = "<leader>cp",
-                },
-              },
             },
           },
         },
