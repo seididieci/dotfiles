@@ -55,6 +55,7 @@ return {
 
     local dapui = require('dapui')
     dapui.setup({
+      force_buffers = true,
       icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
       mappings = {
         -- Use a table to apply multiple mappings
@@ -123,6 +124,7 @@ return {
       },
       windows = { indent = 1 },
       render = {
+        indent = 1,
         max_type_length = nil, -- Can be integer or nil.
         max_value_lines = 100, -- Can be integer or nil.
       }

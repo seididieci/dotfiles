@@ -35,12 +35,14 @@ return {
     vim.g.undotree_SplitWidth = 35
     vim.g.undotree_DiffpanelHeight = 10
 
-    vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePre" }, {
-      --group = ThePrimeagenGroup, -- Fixed variable name capitalization
-      pattern = "*",
-      callback = function()
-        vim.opt_local.undodir = get_undo_dir()
-      end,
-    })
+    --vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePre" }, {
+    --  --group = ThePrimeagenGroup, -- Fixed variable name capitalization
+    --  pattern = "*",
+    --  callback = function()
+    --    local undodir = get_undo_dir()
+    --    print("Setting undo dir to " .. undodir)
+    --    vim.opt_local.undodir = undodir
+    --  end,
+    --})
   end
 }

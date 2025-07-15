@@ -110,6 +110,12 @@ return {
       },
     })
 
+    vim.lsp.config('xmlformatter', {
+      settings = {
+        filetypes = { 'xml', 'wsdl' },
+      },
+    });
+
     require("fidget").setup({})
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -210,7 +216,8 @@ return {
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-        vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, opts)
+        vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+          opts)
       end
     })
   end
