@@ -43,6 +43,11 @@ return {
 
     vim.lsp.config('vue_ls', {
       filetypes = { "vue" },
+      init_options = {
+        typescript = {
+          tsdk = ''
+        },
+      },
       settings = {
         typescript = {
           inlayHints = {
