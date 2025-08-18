@@ -159,6 +159,41 @@ return {
       dapui.eval()
     end)
 
-    require("nvim-dap-virtual-text").setup()
+    -- Dart Debug Adapter
+    dap.adapters.dart = {
+      type = "executable",
+      command = vim.fn.stdpath("data") .. "/mason/bin/dart-debug-adapter", -- Ensure Mason installs this
+      args = { "flutter" },                                                -- Use 'flutter' here for Flutter-specific debugging
+    }
+
+    dap.adapters.flutter = {
+      type = "executable",
+      command = vim.fn.stdpath("data") .. "/mason/bin/dart-debug-adapter", -- Ensure Mason installs this
+      args = { "flutter" },                                                -- Use 'flutter' here for Flutter-specific debugging
+    }
+
+    -- Dart Debug Configurations
+    dap.configurations.dart = {
+      {
+        type = "dart",
+        request = "launch",
+        name = "Launch Dart",
+        dartSdkPath = vim.fn.expand("~") .. "/Android/flutter/bin/cache/dart-sdk/", -- Update with your Flutter SDK path
+        flutterSdkPath = vim.fn.expand("~") .. "/Android/flutter",                  -- Update with your Flutter SDK path
+        program = "${workspaceFolder}/lib/main.dart",                       -- Entry point of your Flutter app
+        cwd = "${workspaceFolder}",                                         -- Project root directory
+      },
+      {
+        type = "flutter",
+        request = "launch",
+        name = "Launch Flutter",
+        dartSdkPath = vim.fn.expand("~") .. "/Android/flutter/bin/cache/dart-sdk/", -- Update with your Flutter SDK path
+        flutterSdkPath = vim.fn.expand("~") .. "/Android/flutter",                  -- Update with your Flutter SDK path
+        program = "${workspaceFolder}/lib/main.dart",                       -- Entry point of your Flutter app
+        cwd = "${workspaceFolder}",                                         -- Project root directory
+      }
+    }
+
+    require("nvim-dap-virtual-text").setup({})
   end
 }
