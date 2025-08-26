@@ -5,9 +5,9 @@ return {
   config = function()
     local tools = require("llm.tools")
     require("llm").setup({
-      url = "http://localhost:11434/api/chat",
-      model = "qwen2.5-coder",
-      api_type = "ollama",
+      url = "http://127.0.0.1:10000/v1/chat/completions",
+      model = "/models/qwen2.5-coder_7b.gguf",
+      api_type = "openai",
 
       -- display diff [require by action_handler]
       display = {
