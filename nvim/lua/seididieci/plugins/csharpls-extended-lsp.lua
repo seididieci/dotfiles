@@ -5,8 +5,8 @@ return {
     "neovim/nvim-lspconfig",
   },
   config = function()
-    local lspconfig = require("lspconfig")
-    lspconfig.csharp_ls.setup({})
+    --local lspconfig = require("lspconfig")
+    --lspconfig.csharp_ls.setup({})
     require("csharpls_extended").buf_read_cmd_bind()
   end,
 }
