@@ -83,7 +83,7 @@
     "tooltip-format": "{app}: {title}"
   },
   "custom/playerctl": {
-    "format": "{}",
+    "format": "{:.50}",
     "return-type": "json",
     "exec": "$HOME/.config/waybar/playerctl.sh 2> /dev/null",
     "on-click": "playerctl play-pause",
