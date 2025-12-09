@@ -223,6 +223,7 @@ return {
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
           opts)
+        vim.keymap.set("v", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
       end
     })
   end
