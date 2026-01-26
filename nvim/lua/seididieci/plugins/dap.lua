@@ -180,8 +180,8 @@ return {
         name = "Launch Dart",
         dartSdkPath = vim.fn.expand("~") .. "/Android/flutter/bin/cache/dart-sdk/", -- Update with your Flutter SDK path
         flutterSdkPath = vim.fn.expand("~") .. "/Android/flutter",                  -- Update with your Flutter SDK path
-        program = "${workspaceFolder}/lib/main.dart",                       -- Entry point of your Flutter app
-        cwd = "${workspaceFolder}",                                         -- Project root directory
+        program = "${workspaceFolder}/lib/main.dart",                               -- Entry point of your Flutter app
+        cwd = "${workspaceFolder}",                                                 -- Project root directory
       },
       {
         type = "flutter",
@@ -189,8 +189,8 @@ return {
         name = "Launch Flutter",
         dartSdkPath = vim.fn.expand("~") .. "/Android/flutter/bin/cache/dart-sdk/", -- Update with your Flutter SDK path
         flutterSdkPath = vim.fn.expand("~") .. "/Android/flutter",                  -- Update with your Flutter SDK path
-        program = "${workspaceFolder}/lib/main.dart",                       -- Entry point of your Flutter app
-        cwd = "${workspaceFolder}",                                         -- Project root directory
+        program = "${workspaceFolder}/lib/main.dart",                               -- Entry point of your Flutter app
+        cwd = "${workspaceFolder}",                                                 -- Project root directory
       }
     }
 

@@ -54,7 +54,14 @@ return {
               },
               action = function()
                 local contents = vim.api.nvim_buf_get_lines(0, 0, -1, true)
-                vim.api.nvim_command(string.format('Git commit -m "%s"', table.concat(contents, '" -m "')))
+                local first_line = contents[1]
+                table.remove(contents, 1)
+                if # (contents) > 1 then
+                  vim.api.nvim_command(string.format('Git commit -m "%s" -m "%s"', first_line,
+                    table.concat(contents, '\n')))
+                else
+                  vim.api.nvim_command(string.format('Git commit -m "%s"', first_line))
+                end
               end,
             },
           },
