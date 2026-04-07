@@ -92,17 +92,22 @@ return {
       },
     })
 
-    vim.lsp.config('csharp_ls', {})
-    local orig_handler = vim.lsp.handlers["window/showMessage"]
-    vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
-      local client = vim.lsp.get_client_by_id(ctx.client_id) or {}
+    vim.lsp.config('csharp_ls', {
+      cmd = { "csharp-ls", "--features", "metadata-uris" },
+      settings = {
+        UseMetadataUris = true
+      },
+    })
+    --local orig_handler = vim.lsp.handlers["window/showMessage"]
+    --vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
+    --  local client = vim.lsp.get_client_by_id(ctx.client_id) or {}
 
-      if client.name == "csharp_ls" and params.type == 3 then
-        return
-      end
+    --  if client.name == "csharp_ls" and params.type == 3 then
+    --    return
+    --  end
 
-      return orig_handler(err, params, ctx, config)
-    end
+    --  return orig_handler(err, params, ctx, config)
+    --end
 
     vim.lsp.config('yamlls', {
       on_attach = function(client)
