@@ -20,16 +20,19 @@ set $term foot
 set $rofi_cmd rofi \
         -terminal '$term'
 
+set $ipc qs -c noctalia-shell ipc call
+
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu $rofi_cmd -show drun -theme ~/.config/rofi/theme.rasi
+#set $menu $rofi_cmd -show drun -theme ~/.config/rofi/theme.rasi
+set $menu $ipc launcher toggle
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/default-dark.jxl fill
+#output * bg /usr/share/backgrounds/default-dark.jxl fill
 
 #output HDMI-A-1 resolution 1920x1080 position 0,0
 #output eDP-1 resolution 1920x1080 position 0,1080
@@ -106,7 +109,8 @@ for_window [title="Picture-in-Picture"] floating enable, sticky enable
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec wlogout
+    # bindsym $mod+Shift+e exec wlogout
+    bindsym $mod+Shift+e exec $ipc sessionMenu toggle
 
 #
 # Moving around:
@@ -238,7 +242,7 @@ bindsym $mod+r mode "resize"
 # (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
 # want to modify/override in the higher-level directory.
 #
-# For example, to disable the default bar from Fedora configs, you'll need to
+# For example, to disable the default barrr from Fedora configs, you'll need to
 #     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
 #
 # Note the quoting, the $() and the arguments quoting. All the parts are equally
