@@ -16,3 +16,5 @@ nvim/lazy-lock.json
 !alacritty/
 !foot/
 !rofi/
+!noctalia/
+noctalia/plugins
