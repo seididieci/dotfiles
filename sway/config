@@ -13,14 +13,15 @@ set $right l
 # Recommends: foot
 set $term foot
 
+# Noctalia ipc call command
+set $ipc qs -c noctalia-shell ipc call
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
-set $rofi_cmd rofi \
-        -terminal '$term'
-
-set $ipc qs -c noctalia-shell ipc call
+#set $rofi_cmd rofi \
+#        -terminal '$term'
 
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
@@ -33,6 +34,7 @@ set $menu $ipc launcher toggle
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
 #output * bg /usr/share/backgrounds/default-dark.jxl fill
+#exec ~/.azotebg
 
 #output HDMI-A-1 resolution 1920x1080 position 0,0
 #output eDP-1 resolution 1920x1080 position 0,1080
@@ -71,6 +73,7 @@ for_window [app_id="java" title="Dbeaver"] floating enable
 for_window [app_id="java" title="DBeaver "] floating enable
 for_window [title=".*Visual Studio Code"] opacity .9
 #for_window [app_id="firefox" title="Developer Tools.*"] opacity .9
+for_window [app_id="app.zen_browser.zen"] mark Browser
 for_window [app_id="firefox" title="Library"] floating enable
 #for_window [app_id="firefox" title=""] floating enable
 for_window [app_id="org.gnome.Nautilus"] opacity .9
