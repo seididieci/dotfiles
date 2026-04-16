@@ -188,7 +188,14 @@
                     "unreadBadgeColor": "primary"
                 },
                 {
-                    "displayMode": "alwaysHide",
+                    "displayMode": "forceOpen",
+                    "iconColor": "none",
+                    "id": "KeyboardLayout",
+                    "showIcon": true,
+                    "textColor": "none"
+                },
+                {
+                    "displayMode": "alwaysShow",
                     "iconColor": "none",
                     "id": "Network",
                     "textColor": "none"
@@ -231,6 +238,10 @@
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
                     "showPowerProfiles": false
+                },
+                {
+                    "iconColor": "none",
+                    "id": "PowerProfile"
                 },
                 {
                     "displayMode": "alwaysShow",
