@@ -308,7 +308,7 @@
         "predefinedScheme": "Eldritch",
         "schedulingMode": "off",
         "syncGsettings": true,
-        "useWallpaperColors": false
+        "useWallpaperColors": true
     },
     "controlCenter": {
         "cards": [
