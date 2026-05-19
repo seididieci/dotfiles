@@ -15,17 +15,19 @@ tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
   tmux new-session -s $selected_name -c $selected  
-  if [[ $selected = *frontend* ]]; then
-    tmux split -vl 13 -t $selected_name -c $selected
+  if [[ $selected = *frontend/* ]]; then
+    tmux split -vl 13 -d -t $selected_name -c $selected
   fi
   exit 0
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
   tmux new-session -ds $selected_name -c $selected
-  if [[ $selected = *frontend* ]]; then
-    tmux split -vl 13 -t $selected_name -c $selected
+  tmux switch-client -t $selected_name
+  if [[ $selected = *frontend/* ]]; then
+    tmux split -vl 13 -d -t $selected_name -c $selected
   fi
+  exit 0
 fi
 
 tmux switch-client -t $selected_name
