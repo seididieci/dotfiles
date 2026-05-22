@@ -20,6 +20,10 @@ return {
       local ft = args.match
       local lang = vim.treesitter.language.get_lang(ft)
 
+      if lang == "netrw" then
+        return
+      end
+
       if not vim.list_contains(ts.get_available(), lang) then
         return
       else
