@@ -19,8 +19,9 @@ return {
       -- install specific parser
       local ft = args.match
       local lang = vim.treesitter.language.get_lang(ft)
+      local excluded = { "netrw", "fugitive" }
 
-      if lang == "netrw" then
+      if excluded[lang] then
         return
       end
 
