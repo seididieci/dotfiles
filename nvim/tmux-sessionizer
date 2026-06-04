@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 
+search_dirs=(
+    ~/work/catalogo_piani/root_backend
+    ~/work/catalogo_piani/root_frontend
+    ~/work/catalogo_piani
+    ~/.config/
+    ~/work
+)
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/work/wisetown/frontend ~/work/wisetown/frontend/modules ~/work/wisetown/backend ~/.config/ ~/work ~/work/wisetown ~/work/wisetown/customers ~/work/wisetown/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find "${search_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
